@@ -1,13 +1,14 @@
 安裝相關套件
-npm install --save express
-npm install nodemon --save-dev
-npm install --save-dev concurrently
-npm install -g create-react-app
+npm i --save express
+npm i nodemon --save-dev
+npm i --save-dev concurrently
+npm i -g create-react-app
 
-npm install -g react-router-dom
-npm install --save react-redux
+npm i -g react-router-dom
+npm i --save react-redux
 npm i react-router
 npm i react-router-dom
 npm i cors
-npm install @mui/material @emotion/react @emotion/styled
+npm i @mui/material @emotion/react @emotion/styled
 npm i express body-parser --save
+npm i sqlite3
