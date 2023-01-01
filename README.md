@@ -12,3 +12,6 @@ npm i cors
 npm i @mui/material @emotion/react @emotion/styled
 npm i express body-parser --save
 npm i sqlite3
+npm i uuid
+npm i recharts
+
