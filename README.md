@@ -14,4 +14,8 @@ npm i express body-parser --save
 npm i sqlite3
 npm i uuid
 npm i recharts
+npm i reactjs-popup --save
 
+
+ngrok http 3000 -host-header="localhost:3000"
+ngrok http --host-header=rewrite 3000
