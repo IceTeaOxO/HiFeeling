@@ -8,7 +8,7 @@ const db = new sqlite3.Database(dbname)
 db.serialize(() => {
   const sql = `
       CREATE TABLE IF NOT EXISTS perorder
-      (id integer primary key,time TEXT,itemNo TEXT,Name TEXT,price TEXT,number TEXT)
+      (id integer primary key,itemNo TEXT,price TEXT,number TEXT,Num TEXT)
   `;
   // 執行sql指令
   db.run(sql);
@@ -32,25 +32,26 @@ class Perorder {
     static create(data, cb) {
         const sql = `
                 INSERT INTO 
-                perorder(time,itemNo,Name,price,number) 
-                VALUES(?,?,?,?,?) 
+                perorder(itemNo,price,number,Num) 
+                VALUES(?,?,?,?) 
                 ;select last_insert_rowid();`;
-        db.run(sql, data.time, data.itemNo,data.Name, data.price,data.number, cb);
+        db.run(sql, data.itemNo,data.price,data.number,data.Num, cb);
     }
-    // 删除一篇文章
+    // 删除
     static delete(id, cb) {
         if (!id) return cb(new Error(`缺少参数id`));
         db.run('DELETE FROM perorder WHERE id=?', id, cb)
     }
-    // 更新一篇文章数据
-    // static update(data, cb) {
-    //     const sql = `
-    //         UPDATE perorder
-    //         SET time=?,itemNo=?,itemNo=?
-    //         WHERE id=?
-    //     `
-    //     db.run(sql, data.time, data.itemNo, data.id,data.itemNo, cb)
-    // }
+    // 更新
+    //傳入顧客ID當作取餐編號
+    static update(data, cb) {
+        const sql = `
+            UPDATE perorder
+            SET Num=?
+            WHERE Num=?
+        `
+        db.run(sql, data.Num,"0", cb)
+    }
 }
 //匯出Class的API
 module.exports.Perorder = Perorder;

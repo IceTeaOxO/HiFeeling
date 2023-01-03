@@ -8,7 +8,7 @@ const db = new sqlite3.Database(dbname)
 db.serialize(() => {
   const sql = `
       CREATE TABLE IF NOT EXISTS customer
-      (id integer primary key,cusName TEXT,tele TEXT,email TEXT)
+      (id integer primary key,cusName TEXT,tele TEXT,email TEXT,time TEXT,Num TEXT)
   `;
   // 執行sql指令
   db.run(sql);
@@ -27,6 +27,7 @@ class Customer {
     static find(id, cb) {
         db.get('SELECT * FROM customer WHERE id = ?', id,cb);
     }
+    //取得最大的ID號碼
     static num(cb){
         db.get('SELECT MAX(id) FROM customer;',cb)
     }
@@ -34,24 +35,34 @@ class Customer {
     static create(data, cb) {
         const sql = `
                 INSERT INTO 
-                customer(cusName,tele,email) 
-                VALUES(?,?,?) 
+                customer(cusName,tele,email,time,Num) 
+                VALUES(?,?,?,?,?) 
                 ;select last_insert_rowid();`;
-        db.run(sql, data.cusName, data.tele,data.email, cb);
+        db.run(sql, data.cusName, data.tele,data.email,data.time,data.Num, cb);
     }
-    // 删除一篇文章
+    // 删除
     static delete(id, cb) {
         if (!id) return cb(new Error(`缺少参数id`));
         db.run('DELETE FROM customer WHERE id=?', id, cb)
     }
-    // 更新一篇文章数据
+    // 更新
     static update(data, cb) {
         const sql = `
             UPDATE customer
-            SET cusName=?,tele=?,email=?
-            WHERE id=?
+            SET cusName=?,tele=?,email=?,time=?,Num=?
+            WHERE Num=""
         `
-        db.run(sql, data.cusName, data.tele, data.id,data.email, cb)
+        //因為顧客ID=取餐編號，所以直接更新
+        db.run(sql, data.cusName, data.tele, data.email,data.time, data.Num , cb)
+    }
+    //取得最新一筆資料，嘗試把最新的資料當作參數，這樣就能得到id了
+    static newData(cb) {
+        const sql = `
+
+        select last_insert_rowid();
+        `
+        //因為顧客ID=取餐編號，所以直接更新
+        db.get(sql, cb)
     }
 }
 //匯出Class的API
