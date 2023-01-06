@@ -63,7 +63,7 @@ app.get('/init', (req, res, next) => {
 
 
 //查詢食物資料庫
-app.get('/food', (req, res, next) => {
+app.get('/api/food', (req, res, next) => {
     Food.all((err, food) => {
         if (err) return next(err);
         //將結果送回給client
@@ -73,7 +73,7 @@ app.get('/food', (req, res, next) => {
 
 
 //查詢客戶資料庫
-app.get('/customer', (req, res, next) => {
+app.get('/api/customer', (req, res, next) => {
     Customer.all((err, customer) => {
         if (err) return next(err);
         //將結果送回給client
@@ -81,7 +81,7 @@ app.get('/customer', (req, res, next) => {
     })
 });
 //根據取餐ID查詢客戶資料
-app.get('/customer/:id', (req, res, next) => {
+app.get('/api/customer/:id', (req, res, next) => {
     Customer.find(req.params.id, (err, customer) => {
         if (err) return next(err);
         res.send(customer)
@@ -95,7 +95,7 @@ app.get('/customer/:id', (req, res, next) => {
 //     })
 // });
 // 創建客戶資料
-app.post('/customer', (req, res, next) => {
+app.post('/api/customer', (req, res, next) => {
     Customer.create({
         "cusName": req.body.cusName ? req.body.cusName : '',
         "tele": req.body.tele ? req.body.tele : '',
@@ -133,7 +133,7 @@ app.post('/customer', (req, res, next) => {
 });
 
 //回傳發放出去的最大顧客取餐號碼
-app.get('/OrderNum', (req, res, next) => {
+app.get('/api/OrderNum', (req, res, next) => {
     Customer.num((err, customer) => {
         if (err) return next(err);
         res.send(Object.values(customer))
@@ -143,7 +143,7 @@ app.get('/OrderNum', (req, res, next) => {
 
 
 //提交點餐表單
-app.post('/menuOrder', (req, res, next) => {
+app.post('/api/menuOrder', (req, res, next) => {
     // console.log(req.body)
     // console.log(typeof(req.body))
     // console.log((req.body.itemNo[2]))
@@ -171,7 +171,7 @@ app.post('/menuOrder', (req, res, next) => {
     res.redirect('http://localhost:3000/info')
 });
 //查看點餐資料庫
-app.get('/menuOrder', (req, res, next) => {
+app.get('/api/menuOrder', (req, res, next) => {
     // console.log("menuOrder")
     Perorder.all((err, perorder) => {
         if (err) return next(err);
@@ -180,7 +180,7 @@ app.get('/menuOrder', (req, res, next) => {
     })
 });
 
-app.get('/foodDetail',(req,res,next)=>{
+app.get('/api/foodDetail',(req,res,next)=>{
     // console.log(req.query.itemNo)
     Food.find(req.query.itemNo, (err, food) => {
         if (err) return next(err);
@@ -195,7 +195,7 @@ app.get('/foodDetail',(req,res,next)=>{
 });
 
 //從點餐資料庫中取得報表所需資料
-app.get('/orderReport',(req,res,next)=>{
+app.get('/api/orderReport',(req,res,next)=>{
     data = [{
         "Name":"餐點A",
         "number":13,
@@ -233,13 +233,13 @@ app.get('/orderReport',(req,res,next)=>{
 
 
 
-app.get('/ok', function (req, res) {
+app.get('/api/ok', function (req, res) {
   res.send('okkkkkk');
   console.log("req")
   
 });
 
-app.post('/', function (req, res) {
+app.post('/api/', function (req, res) {
   //接收post
   console.log("req213")
   console.log(req.body)
