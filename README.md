@@ -1,22 +1,11 @@
-安裝相關套件
-npm i --save express
-npm i nodemon --save-dev
-npm i --save-dev concurrently
-npm i -g create-react-app
+安裝相關套件+啟動後端
+npm install
+npm run server
+切換到client並安裝+啟動前端
+cd client
+npm install
+npm start
 
-npm i -g react-router-dom
-npm i --save react-redux
-npm i react-router
-npm i react-router-dom
-npm i cors
-npm i @mui/material @emotion/react @emotion/styled
-npm i express body-parser --save
-npm i sqlite3
-npm i uuid
-npm i recharts
-npm i reactjs-popup --save
-npm i underscore
-
-
+使用ngrok服務(需要註冊帳號)
 ngrok http 3000 -host-header="localhost:3000"
 ngrok http --host-header=rewrite 3000
